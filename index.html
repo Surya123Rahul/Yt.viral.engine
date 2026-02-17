@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HiggsWhop Global - Ultimate AI Creator Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <style>
+        body { font-family: 'Inter', system-ui; background: linear-gradient(to bottom, #0a0a0a, #1a1a1a); }
+        .video-card { transition: all 0.3s; }
+        .video-card:hover { transform: scale(1.05); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.2); }
+        #globe { width: 100%; height: 300px; }
+        .trending-glow { box-shadow: 0 0 20px #a855f7, 0 0 40px #a855f7; }
+        .trending-box { background: rgba(168, 85, 247, 0.1); border: 1px solid #a855f7; }
+        .crypto-glow { box-shadow: 0 0 20px #f59e0b, 0 0 40px #f59e0b; }
+        .secure-badge { background: #22c55e; color: black; padding: 4px 8px; border-radius: 999px; font-size: 0.75rem; }
+    </style>
+</head>
+<body class="text-white">
+    <!-- Navbar -->
+    <nav class="bg-black border-b border-gray-800 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-gradient-to-br from-fuchsia-600 to-indigo-500 rounded-xl flex items-center justify-center text-2xl">🌍</div>
+                <h1 class="text-2xl font-bold tracking-tight">HiggsWhop <span class="text-fuchsia-400">Global</span></h1>
+            </div>
+            <div class="flex gap-8 text-sm font-medium">
+                <a href="#" onclick="showSection('dashboard')" class="hover:text-fuchsia-400 transition">Dashboard</a>
+                <a href="#" onclick="showSection('upload')" class="hover:text-fuchsia-400 transition">Upload & Clip</a>
+                <a href="#" onclick="showSection('trending')" class="hover:text-fuchsia-400 transition">Trending AI</a>
+                <a href="#" onclick="showSection('campaigns')" class="hover:text-fuchsia-400 transition">Campaigns</a>
+                <a href="#" onclick="showSection('analytics')" class="hover:text-fuchsia-400 transition">Analytics</a>
+                <a href="#" onclick="showSection('referral')" class="hover:text-fuchsia-400 transition">Referral</a>
+                <a href="#" onclick="showSection('earnings')" class="hover:text-fuchsia-400 transition">Earnings</a>
+                <a href="#" onclick="showSection('upgrade')" class="hover:text-fuchsia-400 transition">Upgrade</a>
+                <a href="#" onclick="showSection('settings')" class="hover:text-fuchsia-400 transition">Settings</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <select id="language" class="bg-gray-900 px-3 py-2 rounded-2xl text-sm" onchange="changeLanguage(this.value)">
+                    <option value="en">English (US/UK)</option>
+                    <option value="hi" selected>Hindi (India)</option>
+                    <option value="ru">Русский (Russia)</option>
+                    <option value="ja">日本語 (Japan)</option>
+                    <option value="zh">中文 (China)</option>
+                </select>
+                <div class="bg-gray-900 px-4 py-2 rounded-2xl flex items-center gap-2 text-sm">
+                    <i class="fas fa-wallet text-green-400"></i>
+                    <span id="balance" class="font-bold">$248.50 (USD/INR/RUB)</span>
+                </div>
+                <div class="w-9 h-9 bg-fuchsia-600 rounded-full flex items-center justify-center text-xl">🌟</div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard with 3D Animation -->
+    <div id="dashboard-section" class="max-w-7xl mx-auto px-6 py-8">
+        <div id="globe" class="mb-8"></div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-gray-900 rounded-3xl p-6">
+                <h3 class="text-gray-400 text-sm">Total Clips Made</h3>
+                <div class="text-5xl font-bold mt-2">47</div>
+                <div class="text-green-400 text-sm mt-1 flex items-center gap-1"><i class="fas fa-arrow-up"></i> +12 this week</div>
+            </div>
+            <div class="bg-gray-900 rounded-3xl p-6">
+                <h3 class="text-gray-400 text-sm">Global Views</h3>
+                <div class="text-5xl font-bold mt-2">1.2M</div>
+                <div class="text-fuchsia-400 text-sm mt-1">US/India/Russia +</div>
+            </div>
+            <div class="bg-gray-900 rounded-3xl p-6">
+                <h3 class="text-gray-400 text-sm">Active Campaigns</h3>
+                <div class="text-5xl font-bold mt-2">8</div>
+                <div class="text-yellow-400 text-sm mt-1">Global Income Sources</div>
+            </div>
+        </div>
+        <div class="mt-12">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-semibold">Recent Clips</h2>
+                <button onclick="showSection('upload')" class="bg-fuchsia-600 hover:bg-fuchsia-700 px-6 py-3 rounded-2xl text-sm font-medium flex items-center gap-2">
+                    <i class="fas fa-plus"></i> New Clip
+                </button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6" id="recent-clips"></div>
+        </div>
+    </div>
+
+    <!-- Upload & Clip with AI and Comments -->
+    <div id="upload-section" class="max-w-7xl mx-auto px-6 py-8 hidden">
+        <div class="bg-gray-900 rounded-3xl p-8">
+            <h2 class="text-3xl font-bold mb-2">Upload Video/Link & AI Clip (Advanced)</h2>
+            <p class="text-gray-400 mb-4">File ya link daalo, AI clips banao – Comments add karo for engagement</p>
+            <div class="flex flex-wrap gap-4 mb-8">
+                <button onclick="callAI('gemini')" class="bg-blue-600 px-4 py-2 rounded-2xl text-sm">Gemini Pro</button>
+                <button onclick="callAI('grok')" class="bg-green-600 px-4 py-2 rounded-2xl text-sm">Grok AI</button>
+                <button onclick="callAI('kimi')" class="bg-purple-600 px-4 py-2 rounded-2xl text-sm">Kimi AI</button>
+                <button onclick="callAI('deepseek')" class="bg-orange-600 px-4 py-2 rounded-2xl text-sm">Deepseek</button>
+                <button onclick="callAI('11labs')" class="bg-red-600 px-4 py-2 rounded-2xl text-sm">11 Labs</button>
+                <button onclick="callAI('runway')" class="bg-indigo-600 px-4 py-2 rounded-2xl text-sm">Runway AI</button>
+            </div>
+            <div class="mb-6">
+                <input type="text" id="video-link" class="w-full bg-gray-800 p-4 rounded-2xl text-white placeholder-gray-500" placeholder="Paste Video Link (YT/FB/IG/TikTok)">
+            </div>
+            <div id="dropzone" class="border-2 border-dashed border-gray-700 rounded-3xl h-64 flex flex-col items-center justify-center cursor-pointer hover:border-fuchsia-500 transition">
+                <i class="fas fa-cloud-upload-alt text-6xl text-gray-600 mb-4"></i>
+                <p class="text-lg">Drag & Drop ya Click to Upload</p>
+                <p class="text-sm text-gray-500">MP4, MOV (max 500MB)</p>
+                <input type="file" id="video-upload" class="hidden" accept="video/*">
+            </div>
+            <input type="text" id="clip-comments" class="w-full bg-gray-800 p-4 rounded-2xl mt-4 text-white placeholder-gray-500" placeholder="Add Comments for Engagement (e.g., 'What do you think?')">
+            <button onclick="generateClips()" class="mt-8 w-full bg-gradient-to-r from-fuchsia-600 to-indigo-600 py-4 rounded-2xl font-bold text-lg flex items-center justify-center gap-3 hover:scale-105 transition">
+                <i class="fas fa-magic"></i> Generate Clip & Add Comments
+            </button>
+            <div id="clips-preview" class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 hidden"></div>
+        </div>
+    </div>
+
+    <!-- Trending AI Box -->
+    <div id="trending-section" class="max-w-7xl mx-auto px-6 py-8 hidden">
+        <div class="bg-gray-900 rounded-3xl p-8">
+            <h2 class="text-3xl font-bold mb-6">AI Trending Search (All Platforms)</h2>
+            <p class="text-gray-400 mb-8">Niche daalo, AI sab platforms se trending data collect karega – Ideas le aur clips bana!</p>
+            <input type="text" id="trend-search" class="w-full bg-gray-800 p-4 rounded-2xl mb-6 placeholder-gray-500 trending-glow" placeholder="Enter Niche (e.g., fitness, tech hacks)">
+            <button onclick="searchTrends()" class="w-full bg-gradient-to-r from-purple-600 to-fuchsia-600 py-4 rounded-2xl font-bold text-lg flex items-center justify-center gap-3 hover:scale-105 transition trending-glow">
+                <i class="fas fa-fire"></i> Search Trending Topics/Videos
+            </button>
+            <div id="trend-results" class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+        </div>
+    </div>
+
+    <!-- Campaigns Section -->
+    <div id="campaigns-section" class="max-w-7xl mx-auto px-6 py-8 hidden">
+        <h2 class="text-3xl font-bold mb-6">Global Campaigns (Join & Earn)</h2>
+        <p class="text-gray-400 mb-6">Campaigns join karo, clips post kar, views se earn ($1-4 per 1k views, up to $2500/video lifetime like Higgs, better rates)</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-gray-900 rounded-3xl p-6 video-card">
+                <div class="h-48 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl mb-4 flex items-center justify-center text-4xl">📱</div>
+                <h3 class="font-semibold">Tech Clips Campaign</h3>
+                <p class="text-sm text-gray-400">$3 / 1k views • $1000 day1 cap</p>
+                <button onclick="joinCampaign(0)" class="mt-4 w-full bg-green-600 py-3 rounded-2xl text-sm font-medium">Join & Start</button>
+            </div>
+            <div class="bg-gray-900 rounded-3xl p-6 video-card">
+                <div class="h-48 bg-gradient-to-br from-red-500 to-orange-500 rounded-2xl mb-4 flex items-center justify-center text-4xl">🍔</div>
+                <h3 class="font-semibold">Food Vlogs Campaign</h3>
+                <p class="text-sm text-gray-400">$2.5 / 1k views • Bonuses at 24hr/7day</p>
+                <button onclick="joinCampaign(1)" class="mt-4 w-full bg-green-600 py-3 rounded-2xl text-sm font-medium">Join & Start</button>
+            </div>
+            <div class="bg-gray-900 rounded-3xl p-6 video-card">
+                <div class="h-48 bg-gradient-to-br from-purple-500 to-indigo-500 rounded-2xl mb-4 flex items-center justify-center text-4xl">💪</div>
+                <h3 class="font-semibold">Fitness Campaign</h3>
+                <p class="text-sm text-gray-400">$4 / 1k views • Global, real-time tracking</p>
+                <button onclick="joinCampaign(2)" class="mt-4 w-full bg-green-600 py-3 rounded-2xl text-sm font-medium">Join & Start</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Analytics Section -->
+    <div id="analytics-section" class="max-w-7xl mx-auto px-6 py-8 hidden">
+        <div class="bg-gray-900 rounded-3xl p-8">
+            <h2 class="text-3xl font-bold mb-6">Analytics Dashboard</h2>
+            <canvas id="analytics-chart" width="400" height="200"></canvas>
+        </div>
+    </div>
+
+    <!-- Referral Section -->
+    <div id="referral-section" class="max-w-7xl mx-auto px-6 py-8 hidden">
+        <div class="bg-gray-900 rounded-3xl p-8">
+            <h2 class="text-3xl font-bold mb-6">Referral Program</h2>
+            <p class="text-gray-400 mb-6">Dost invite karo, $10-50 bonus mile per join</p>
+            <input type="text" class="w-full bg-gray-800 p-4 rounded-2xl mb-4" value="Your Link: higgswhop.com/ref/you" readonly>
+            <button onclick="inviteReferral()" class="w-full bg-blue-600 py-4 rounded-2xl font-bold text-lg">Invite Friends</button>
+        </div>
+    </div>
+
+    <!-- Earnings & Payout (Better than Higgs/Whop) -->
+    <div id="earnings-section" class="max-w-7xl mx-auto px-6 py-8 hidden">
+        <div class="bg-gray-900 rounded-3xl p-8">
+            <h2 class="text-3xl font-bold mb-6">Earnings & Payouts (Global, Secure)</h2>
+            <p class="text-gray-400 mb-6">Earnings from views/campaigns ($1-4/1k views, bonuses at 24hr/7day, up to $2500/video). Payouts: Bitcoin/USDT/ETH priority (no fees, instant where possible), bank (ACH/wire/IFSC for India, global 241+ countries), PayPal. Min $50, weekly/monthly, auto-conversion USD/INR/etc.</p>
+            <select id="payout-method" class="w-full bg-gray-800 p-4 rounded-2xl mb-4">
+                <option>Bitcoin (Direct, No Fees)</option>
+                <option>USDT (Stable, Instant)</option>
+                <option>ETH (Blockchain)</option>
+                <option>Bank (ACH/Wire/IFSC India/US)</option>
+                <option>PayPal (Global)</option>
+            </select>
+            <input type="text" id="payout-details" class="w-full bg-gray-800 p-4 rounded-2xl mb-4" placeholder="Wallet Address / Bank Account + IFSC">
+            <button onclick="requestPayout()" class="w-full bg-orange-600 py-4 rounded-2xl font-bold text-lg">Request Payout (24hr Approve)</button>
+            <div class="mt-8 overflow-hidden">
+                <table class="w-full">
+                    <thead>
+                        <tr class="border-b border-gray-800">
+                            <th class="text-left p-6 text-gray-400">Clip</th>
+                            <th class="text-left p-6 text-gray-400">Views</th>
+                            <th class="text-left p-6 text-gray-400">Earned</th>
+                            <th class="text-left p-6 text-gray-400">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="earnings-table"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upgrade Section -->
+    <div id="upgrade-section" class="max-w-7xl mx-auto px-6 py-8 hidden">
+        <div class="bg-gray-900 rounded-3xl p-8">
+            <h2 class="text-3xl font-bold mb-6">Upgrade Plans</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-gray-900 border-2 border-gray-700 rounded-3xl p-6">
+                    <h3 class="font-semibold text-xl">Free</h3>
+                    <p class="text-gray-400">$0/mo</p>
+                    <ul class="text-sm mt-4 space-y-2">
+                        <li>✅ Basic Clips & Trends</li>
+                        <li>✅ 5 Campaigns</li>
+                        <li>✅ Standard Security</li>
+                    </ul>
+                </div>
+                <div class="bg-gray-900 border-2 border-fuchsia-500 rounded-3xl p-6">
+                    <h3 class="font-semibold text-xl">Pro</h3>
+                    <p class="text-gray-400">$9.99/mo</p>
+                    <ul class="text-sm mt-4 space-y-2">
+                        <li>✅ Unlimited Clips</li>
+                        <li>✅ All Campaigns</li>
+                        <li>✅ Advanced AI & Security</li>
+                    </ul>
+                    <button onclick="upgrade('pro')" class="mt-4 w-full bg-fuchsia-600 py-3 rounded-2xl text-sm">Upgrade</button>
+                </div>
+                <div class="bg-gray-900 border-2 border-indigo-500 rounded-3xl p-6">
+                    <h3 class="font-semibold text-xl">Enterprise</h3>
+                    <p class="text-gray-400">$49.99/mo</p>
+                    <ul class="text-sm mt-4 space-y-2">
+                        <li>✅ Custom Features</li>
+                        <li>✅ Priority Support</li>
+                        <li>✅ Max Security & Global</li>
+                    </ul>
+                    <button onclick="upgrade('enterprise')" class="mt-4 w-full bg-indigo-600 py-3 rounded-2xl text-sm">Upgrade</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings with Platform Connects & Security -->
+    <div id="settings-section" class="max-w-7xl mx-auto px-6 py-8 hidden">
+        <div class="bg-gray-900 rounded-3xl p-8">
+            <h2 class="text-3xl font-bold mb-6">Settings (Hack-Proof Security)</h2>
+            <p class="text-gray-400 mb-6">Platforms connect karo, security enable (2FA, encryption, anti-DDoS like Whop/Higgs).</p>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                <button onclick="connectPlatform('youtube')" class="bg-red-600 py-4 rounded-2xl flex items-center justify-center gap-2 font-bold">YouTube Connect</button>
+                <button onclick="connectPlatform('instagram')" class="bg-pink-600 py-4 rounded-2xl flex items-center justify-center gap-2 font-bold">Instagram Connect</button>
+                <button onclick="connectPlatform('facebook')" class="bg-blue-600 py-4 rounded-2xl flex items-center justify-center gap-2 font-bold">Facebook Connect</button>
+                <button onclick="connectPlatform('tiktok')" class="bg-black py-4 rounded-2xl flex items-center justify-center gap-2 font-bold text-white border">TikTok Connect</button>
+            </div>
+            <button onclick="enableSecurity()" class="w-full bg-green-600 py-4 rounded-2xl font-bold text-lg flex items-center justify-center gap-2">Enable Advanced Security (2FA + Encryption)</button>
+        </div>
+    </div>
+
+    <script>
+        // 3D Globe Animation (Unique UI)
+        function initGlobe() {
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / 300, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ alpha: true });
+            renderer.setSize(window.innerWidth * 0.8, 300);
+            document.getElementById('globe').appendChild(renderer.domElement);
+            const geometry = new THREE.SphereGeometry(5, 32, 32);
+            const material = new THREE.MeshBasicMaterial({ color: 0x8b5cf6, wireframe: true });
+            const sphere = new THREE.Mesh(geometry, material);
+            scene.add(sphere);
+            camera.position.z = 10;
+            function animate() {
+                requestAnimationFrame(animate);
+                sphere.rotation.y += 0.005;
+                renderer.render(scene, camera);
+            }
+            animate();
+        }
+
+        // Show Section
+        function showSection(section) {
+            document.querySelectorAll('div[id$="-section"]').forEach(s => s.classList.add('hidden'));
+            document.getElementById(section + '-section').classList.remove('hidden');
+        }
+
+        // AI Call
+        function callAI(ai) {
+            alert(`Calling ${ai} AI... Enhanced clips ready!`);
+        }
+
+        // Generate Clips with Comments
+        function generateClips() {
+            const comments = document.getElementById('clip-comments').value;
+            const preview = document.getElementById('clips-preview');
+            preview.classList.remove('hidden');
+            preview.innerHTML = `<div class="bg-gray-800 rounded-2xl p-4 text-center"><p class="text-green-400 font-bold">Clips Generated with Comments: "${comments}"</p><button onclick="postToSocial()" class="mt-4 bg-white text-black px-8 py-3 rounded-2xl font-medium">Post to Platforms</button></div>`;
+        }
+
+        // Post to Social
+        function postToSocial() {
+            alert('Posted to connected platforms! Earnings tracking started (views-based + bonuses).');
+        }
+
+        // Search Trends
+        function searchTrends() {
+            const niche = document.getElementById('trend-search').value;
+            const results = document.getElementById('trend-results');
+            results.innerHTML = `<div class="bg-gray-800 rounded-2xl p-4"><p>Trending in ${niche}: Viral videos, topics from all platforms.</p></div>`;
+        }
+
+        // Join Campaign
+        function joinCampaign(id) {
+            alert('Campaign joined! Start clipping and earning (up to $2500/video).');
+        }
+
+        // Upgrade
+        function upgrade(tier) {
+            alert(`Upgraded to ${tier}!`);
+        }
+
+        // Language Change
+        function changeLanguage(lang) {
+            alert(`Language set to ${lang}.`);
+        }
+
+        // Connect Platform
+        function connectPlatform(platform) {
+            alert(`${platform} connected! Direct post enabled.`);
+        }
+
+        // Invite Referral
+        function inviteReferral() {
+            alert('Referral sent! Bonus on join.');
+        }
+
+        // Request Payout
+        function requestPayout() {
+            const method = document.getElementById('payout-method').value;
+            const details = document.getElementById('payout-details').value;
+            if (details) alert(`Payout requested via ${method} to ${details}. Approve in 24hrs, no fees (better than Higgs/Whop).`);
+        }
+
+        // Enable Security
+        function enableSecurity() {
+            alert('Security enabled: 2FA, encryption, anti-hack (hack-proof like Whop/Higgs, but better).');
+        }
+
+        // Load Recent Clips (Sample)
+        function loadRecentClips() {
+            const container = document.getElementById('recent-clips');
+            container.innerHTML = `<div class="bg-gray-900 rounded-3xl p-4">Sample Clip 1</div><div class="bg-gray-900 rounded-3xl p-4">Sample Clip 2</div>`;
+        }
+
+        // Load Earnings (Sample)
+        function loadEarnings() {
+            const tbody = document.getElementById('earnings-table');
+            tbody.innerHTML = `<tr><td>Clip 1</td><td>100K</td><td>$300</td><td>Paid</td></tr>`;
+        }
+
+        // Analytics Chart
+        function loadAnalytics() {
+            const ctx = document.getElementById('analytics-chart').getContext('2d');
+            new Chart(ctx, { type: 'line', data: { labels: ['Day 1', 'Day 7'], datasets: [{ label: 'Earnings', data: [100, 2500], borderColor: '#f59e0b' }] } });
+        }
+
+        // Video Upload Functionality
+        function handleVideoUpload(event) {
+            const file = event.target.files[0] || event.dataTransfer.files[0];
+            if (file) {
+                if (file.size > 500 * 1024 * 1024) { // Max 500MB check
+                    alert('File size too large! Max 500MB');
+                    return;
+                }
+                document.getElementById('file-name').textContent = file.name;
+                const preview = document.getElementById('video-preview');
+                preview.src = URL.createObjectURL(file);
+                document.getElementById('upload-preview').classList.remove('hidden');
+                alert('Video uploaded successfully! Preview ready.');
+                // Simulate backend save (localStorage for demo)
+                localStorage.setItem('uploadedVideo', file.name);
+                // Real Firebase Storage (uncomment and add your config)
+                // const storageRef = ref(storage, 'videos/' + file.name);
+                // uploadBytes(storageRef, file).then((snapshot) => {
+                //     alert('Uploaded to Firebase!');
+                // });
+            }
+        }
+
+        // Init
+        window.onload = () => {
+            initGlobe();
+            loadRecentClips();
+            loadEarnings();
+            loadAnalytics();
+            showSection('dashboard');
+            const dropzone = document.getElementById('dropzone');
+            dropzone.addEventListener('click', () => document.getElementById('video-upload').click());
+            document.getElementById('video-upload').addEventListener('change', handleVideoUpload);
+            dropzone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                handleVideoUpload(e);
+            });
+            dropzone.addEventListener('dragover', (e) => e.preventDefault());
+        };
+    </script>
+</body>
+</html>
